@@ -1,0 +1,26 @@
+{
+  "name": "stressfaktor-api-ui",
+  "version": "0.0.0",
+  "authors": [
+    "warmans <stefan.warman@gmail.com>"
+  ],
+  "description": "Simple UI to consume stressfaktor-api",
+  "keywords": [],
+  "license": "MIT",
+  "devDependencies": {
+    "requirejs": "~2.1.15",
+    "angular": "~1.2.0",
+    "angular-route": "~1.2.0",
+    "bootstrap": "~3.3.6"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "resolutions": {
+    "angular": "~1.5.0"
+  }
+}

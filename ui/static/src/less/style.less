@@ -1,0 +1,68 @@
+@import "bootstrap.less";
+
+@brand-primary: #2F2F2F;
+@body-background: #161616;
+@panel-background: #1F1F1F;
+@panel-border: #2F2F2F;
+@text-color: #CCC;
+@list-group-bg: @panel-background;
+@list-group-border: @panel-border;
+
+body {
+  background-color : @body-background;
+}
+
+//rounding
+@border-radius-base:        0px;
+@border-radius-large:       0px;
+@border-radius-small:       0px;
+
+//panels
+@panel-bg:                    @panel-background;
+@panel-default-text:          @text-color;
+@panel-default-border:        @panel-border;
+@panel-default-heading-bg:    @panel-background;
+
+.panel .table {
+  margin-bottom: 0px;
+}
+
+.panel-body.numeric-status {
+  text-align: center;
+  font-size : 4em;
+  font-weight: bold;
+}
+
+
+//tables
+@table-bg:                      transparent;
+@table-bg-accent:               #1A1A1A;
+@table-bg-hover:                #1A1A1A;
+@table-border-color:            @panel-border;
+
+table tr td {
+  vertical-align: middle !important;
+}
+
+//forms
+@input-bg: darken(@panel-background, 2%);
+@input-border:  @input-bg;
+
+.radio-inline {
+  margin-bottom: -5px !important;
+}
+
+.form-inline .form-group {
+  margin-right: 20px !important;
+}
+
+//media
+.media {
+    background-color: @panel-background;
+    border : 1px solid @panel-border;
+    padding: 10px;
+}
+
+.media .media-bottom {
+    margin-top: 10px;
+}
