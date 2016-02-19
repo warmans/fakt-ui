@@ -15,6 +15,8 @@ module.exports = function(grunt) {
                       'bower_components/jquery/dist/jquery.js',
                       //bootstrap
                       'bower_components/bootstrap/dist/js/bootstrap.min.js',
+                      //moment
+                      'bower_components/moment/moment.js',
                       //require
                       'bower_components/requirejs/require.js'
                   ],

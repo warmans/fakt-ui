@@ -22,5 +22,8 @@
   ],
   "resolutions": {
     "angular": "~1.5.0"
+  },
+  "dependencies": {
+    "moment": "^2.11.2"
   }
 }

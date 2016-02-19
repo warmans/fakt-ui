@@ -2,13 +2,24 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <span class="navbar-brand">
-                Stressfaktor API UI
+                Stressfaktor API UI {{search.period}}
             </span>
         </div>
+        <form class="navbar-form navbar-right" role="search">
+            <div class="form-group">
+                <select class="form-control" ng-model="search.period">
+                    <option value="day">today</option>
+                    <option value="week">this week</option>
+                    <option value="month">this month</option>
+                    <option value="all" selected>all</option>
+                </select>
+                <input type="text" class="form-control" placeholder="Search" ng-model="search.keyword">
+            </div>
+        </form>
     </div>
 </nav>
 <div class="container-fluid">
-    <span ng-repeat="(k, event) in events">
+    <span ng-repeat="(k, event) in events | filter: search.keyword">
         <h1 ng-if="k == 0 || dateToDay(event.date) != dateToDay(events[k-1].date)">{{dateToDay(event.date)}}</h1>
         <div class="media" style="margin-bottom: 10px">
             <div class="media-body" >
@@ -26,14 +37,13 @@
             </div>
             <div class="media-bottom">
                 <table ng-if="event.performer" class="table table-condensed table-bordered">
-                    <tr><th>Performer</th><th>Genre</th><th></th></tr>
                     <tr ng-repeat="perf in event.performer">
                         <td>{{perf.name}} <span ng-if="perf.home" class="text-muted">({{perf.home}})</span></td>
                         <td>{{perf.genre}}</td>
                         <td><a target="_blank" class="btn btn-primary" ng-if="perf.listen_url" href="{{perf.listen_url}}">Listen</a></td>
                     </tr>
                 </table>
-                {{event.date}}
+                {{ event.date | fdate }} <span class="text-muted">(starts {{ event.date | fromnow }})</span>
             </div>
         </div>
     </span>
