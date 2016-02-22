@@ -1,6 +1,6 @@
 @import "bootstrap.less";
 
-@brand-primary: #2F2F2F;
+@brand-primary: #801515;
 @body-background: #161616;
 @panel-background: #1F1F1F;
 @panel-border: #2F2F2F;
@@ -10,6 +10,27 @@
 @navbar-margin-bottom: 0px;
 body {
   background-color : @body-background;
+}
+
+body {
+    background: url('/ui/img/dark_stripes.png');
+    font-family: monospace;
+}
+
+h4 {
+    color: @brand-primary;
+}
+
+//navbar
+@navbar-inverse-brand-color: @brand-primary;
+
+.navbar-collapse .form-control {
+    max-width: 150px;
+}
+
+.navbar-collapse.in .form-control {
+    max-width: 100%;
+    margin-bottom: 5px;
 }
 
 //rounding
@@ -55,13 +76,10 @@ table tr td {
   margin-right: 20px !important;
 }
 
-//media
-.media {
-    background-color: @panel-background;
-    border : 1px solid @panel-border;
-    padding: 10px;
-}
-
-.media .media-bottom {
-    margin-top: 10px;
+.inset-divider {
+    width: 100%;
+    height: 1px;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #2f2f2f;
+    margin : 10px 0px;
 }
