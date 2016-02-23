@@ -21,9 +21,10 @@
     "tests"
   ],
   "resolutions": {
-    "angular": "~1.5.0"
+    "angular": "1.5.0"
   },
   "dependencies": {
-    "moment": "^2.11.2"
+    "moment": "^2.11.2",
+    "angular-busy": "^4.1.3"
   }
 }

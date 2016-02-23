@@ -1,9 +1,10 @@
 define([
+    './factory/dates',
     './controller/index',
 ],
-function (indexController) {
+function (dateHelper, indexController) {
 
-    var app = angular.module('sfui', ['ngRoute']);
+    var app = angular.module('sfui', ['ngRoute', 'cgBusy']);
 
     //module config
     app.config(['$routeProvider', function($routeProvider){
@@ -16,44 +17,14 @@ function (indexController) {
             .otherwise({redirectTo: '/index'});
     }]);
 
-    app.filter('fdate', function() {
-        return function(input) {
-            var d = moment(input, moment.ISO_8601);
-            return d.format("dddd Do MMM h:mma");
-        };
-    })
-
-    app.filter('fromnow', function() {
-        return function(input) {
-            var d = moment(input, moment.ISO_8601);
-            return d.fromNow();
-        };
-    })
-
-    app.filter('zerotime', function() {
-        return function(input) {
-            var d = moment(input, moment.ISO_8601);
-            d.set({hour: 0, minute: 0, second: 0});
-            return d;
-        };
-    })
-
-    app.filter('caldate', function() {
-    moment.locale('en', {
-        'calendar' : {
-            'lastDay' : '[Yesterday]',
-             'sameDay' : '[Today]',
-            'nextDay' : '[Tomorrow]',
-            'lastWeek' : '[Last] dddd',
-            'nextWeek' : '[This] dddd',
-            'sameElse' : 'L'
-       }
+    angular.module('sfui').value('cgBusyDefaults',{
+        message: "Loading...",
+        templateUrl: '/ui/src/app/view/partial/angular-busy.html',
+        backdrop: false,
     });
-        return function(input) {
-            var d = moment(input, moment.ISO_8601);
-            return d.calendar();
-        };
-    })
+
+    //register factories
+    app.factory('dateHelper', dateHelper);
 
     //register controllers
     app.controller('indexController', indexController);

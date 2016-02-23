@@ -11,16 +11,18 @@ module.exports = function(grunt) {
                       //angular
                       'bower_components/angular/angular.js',
                       'bower_components/angular-route/angular-route.js',
-                      //jquery
-                      'bower_components/jquery/dist/jquery.js',
+                      'bower_components/angular-busy/angular-busy.js',
                       //bootstrap
+                      'bower_components/jquery/dist/jquery.js',
                       'bower_components/bootstrap/dist/js/bootstrap.min.js',
                       //moment
                       'bower_components/moment/moment.js',
                       //require
-                      'bower_components/requirejs/require.js'
+                      'bower_components/requirejs/require.js',
                   ],
-                  'static/dist/vendor.css': []
+                  'static/dist/vendor.css': [
+                      'bower_components/angular-busy/dist/angular-busy.min.css',
+                  ]
               }
           }
         },
