@@ -28,7 +28,20 @@ define([], function () {
         $scope.eventTypes = [];
         $scope.events = [];
 
-        var getData = function() {
+        if ($scope.eventTypes.length === 0) {
+            $scope.eventUpdatePromise = $http({method: 'GET', url: 'http://88.80.184.89/api/v1/event_type'})
+            .then(function successCallback(response) {
+                angular.forEach(response.data.payload, function(type) {
+                    if ($scope.eventTypes.indexOf(type) === -1) {
+                        $scope.eventTypes.push(type);
+                    }
+                });
+            }, function errorCallback(response) {
+                console.log("FAILED", response)
+            });
+        }
+
+        var refreshEventData = function() {
             $scope.eventUpdatePromise = $http({method: 'GET', url: 'http://88.80.184.89/api/v1/event', params: angular.extend({type: $scope.search.type}, $scope.search.periodQuery())})
             .then(function successCallback(response) {
 
@@ -41,15 +54,6 @@ define([], function () {
                     event.dateFromNow = dateHelper.fromNow(event.date);
                     events.push(event);
                 });
-
-                //todo: hack to get a event type listing. Should be a serverside call with types ordered by num occurrences.
-                if ($scope.eventTypes.length === 0) {
-                    angular.forEach(events, function(ev) {
-                        if ($scope.eventTypes.indexOf(ev.type) === -1) {
-                            $scope.eventTypes.push(ev.type);
-                        }
-                    });
-                }
                 $scope.events = events;
 
                 //on load complete propagate values to URI query
@@ -62,13 +66,13 @@ define([], function () {
                 console.log("FAILED", response)
             });
         }
-        getData();
+        refreshEventData();
 
         var queryWatcher = function(newVal, oldVal) {
               if (newVal == oldVal) {
                   return;
               }
-              getData();
+              refreshEventData();
           };
         $scope.$watch('search.period', queryWatcher)
         $scope.$watch('search.type', queryWatcher)
