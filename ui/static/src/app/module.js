@@ -20,7 +20,7 @@ function (dateHelper, eventsController) {
     angular.module('sfui').value('cgBusyDefaults',{
         message: "Loading...",
         templateUrl: '/ui/src/app/view/partial/angular-busy.html',
-        backdrop: false,
+        backdrop: true,
     });
 
     //register factories
