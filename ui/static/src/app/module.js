@@ -1,20 +1,20 @@
 define([
     './factory/dates',
-    './controller/index',
+    './controller/events',
 ],
-function (dateHelper, indexController) {
+function (dateHelper, eventsController) {
 
     var app = angular.module('sfui', ['ngRoute', 'cgBusy']);
 
     //module config
     app.config(['$routeProvider', function($routeProvider){
         $routeProvider
-            .when('/index', {
-                templateUrl: '/ui/src/app/view/index.html',
-                controller: 'indexController',
+            .when('/events', {
+                templateUrl: '/ui/src/app/view/events.html',
+                controller: 'eventsController',
                 reloadOnSearch: false
             })
-            .otherwise({redirectTo: '/index'});
+            .otherwise({redirectTo: '/events'});
     }]);
 
     angular.module('sfui').value('cgBusyDefaults',{
@@ -27,5 +27,5 @@ function (dateHelper, indexController) {
     app.factory('dateHelper', dateHelper);
 
     //register controllers
-    app.controller('indexController', indexController);
+    app.controller('eventsController', eventsController);
 });

@@ -1,12 +1,12 @@
 define([], function () {
 
-    function controller($scope, $http, dateHelper) {
+    function controller($scope, $http, $location, dateHelper) {
 
         $scope.dateHelper = dateHelper;
         $scope.search = {
             keyword: "",
-            period: "week",
-            type: "",
+            period: $location.search().period || "week",
+            type: $location.search().type || "",
             periodQuery: function() {
                 var p = $scope.search.period
                 if (p == "yesterday") {
@@ -25,7 +25,6 @@ define([], function () {
             }
         };
 
-
         $scope.eventTypes = [];
         $scope.events = [];
 
@@ -34,28 +33,30 @@ define([], function () {
             .then(function successCallback(response) {
 
                 var events = [];
-                var eventTypes = [];
 
                 angular.forEach(response.data.payload, function(event, k) {
                     //pre-process to avoid filters here so we don't end up with a billion watches/digests on long lists
                     event.datePretty = dateHelper.format(event.date);
                     event.dateCalendar = dateHelper.calendar(event.date);
-                    event.firstInDay = (k == 0 || (false == dateHelper.isSameDay(event.date, events[k-1].date)));
+                    event.dateFromNow = dateHelper.fromNow(event.date);
                     events.push(event);
                 });
 
                 //todo: hack to get a event type listing. Should be a serverside call with types ordered by num occurrences.
                 if ($scope.eventTypes.length === 0) {
                     angular.forEach(events, function(ev) {
-                        if (eventTypes.indexOf(ev.type) === -1) {
-                            eventTypes.push(ev.type);
+                        if ($scope.eventTypes.indexOf(ev.type) === -1) {
+                            $scope.eventTypes.push(ev.type);
                         }
                     });
                 }
-
-                //move to scope
                 $scope.events = events;
-                $scope.eventTypes = eventTypes;
+
+                //on load complete propagate values to URI query
+                $location.search('period', $scope.search.period);
+                if ($scope.search.type != ""){
+                    $location.search('type', $scope.search.type);
+                }
 
             }, function errorCallback(response) {
                 console.log("FAILED", response)
@@ -73,7 +74,7 @@ define([], function () {
         $scope.$watch('search.type', queryWatcher)
     }
 
-    controller.$inject=['$scope', '$http', 'dateHelper'];
+    controller.$inject=['$scope', '$http', '$location', 'dateHelper'];
 
     return controller;
 });
