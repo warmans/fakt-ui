@@ -8,6 +8,7 @@ import (
 	"github.com/NYTimes/gziphandler"
 	"github.com/lox/httpcache"
 	"time"
+	"github.com/lox/httpcache/httplog"
 )
 
 func main() {
@@ -32,20 +33,38 @@ func main() {
 
 	//routing
 	mux := http.NewServeMux()
-	mux.Handle("/", http.RedirectHandler("/ui", http.StatusMovedPermanently))
-	mux.Handle("/ui/", http.StripPrefix("/ui/", gziphandler.GzipHandler(staticFileServer)))
+	mux.Handle("/", http.RedirectHandler("/ui/", http.StatusMovedPermanently))
+	mux.Handle("/ui/", http.StripPrefix("/ui/", AddCacheHeaders(gziphandler.GzipHandler(staticFileServer))))
 
 	//HTTP caching
 	cacheMiddleware := httpcache.NewHandler(httpcache.NewMemoryCache(), mux)
 	cacheMiddleware.Shared = true
+
+	//HTTP logging
+	loggingMiddleware := httplog.NewResponseLogger(cacheMiddleware)
 	if *verbose == "vvvv" {
-		httpcache.DebugLogging = true
+		loggingMiddleware.DumpRequests = true
+		loggingMiddleware.DumpResponses = true
+		loggingMiddleware.DumpErrors = true
 	}
 
 	for true {
 		log.Printf("Listening on %s", *bind)
-		err := http.ListenAndServe(*bind, cacheMiddleware)
+		err := http.ListenAndServe(*bind, loggingMiddleware)
 		log.Printf("SERVER FAILED: %s", err.Error())
 		time.Sleep(1 * time.Second) //retry in 1 second
 	}
+}
+
+func AddCacheHeaders(next http.Handler) http.Handler {
+	return &CacheHeaders{nextHandler: next}
+}
+
+type CacheHeaders struct {
+	nextHandler http.Handler
+}
+
+func (c *CacheHeaders) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
+	rw.Header().Set("Cache-Control", "public, max-age=86400")
+	c.nextHandler.ServeHTTP(rw, r)
 }
