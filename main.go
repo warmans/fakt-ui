@@ -9,16 +9,25 @@ import (
 	"github.com/lox/httpcache"
 	"time"
 	"github.com/lox/httpcache/httplog"
+	"fmt"
 )
+
+const VERSION = "0.0.1"
 
 func main() {
 
 	bind := flag.String("bind", ":1313", "Web server bind address")
-	verbose := flag.String("verbose", "", "enable debug logging")
+	debug := flag.Bool("verbose", false, "enable debug logging")
+	ver := flag.Bool("v", false, "Print version and exit")
 	flag.Parse()
 
-	if *verbose != "" {
-		log.Printf("VERBOSE is enabled (%s)", *verbose)
+	if *ver {
+		fmt.Printf("%s", VERSION)
+		os.Exit(0)
+	}
+
+	if *debug {
+		log.Printf("DEBUG is enabled (%v)", *debug)
 	}
 
 	//static assets
@@ -42,11 +51,9 @@ func main() {
 
 	//HTTP logging
 	loggingMiddleware := httplog.NewResponseLogger(cacheMiddleware)
-	if *verbose == "vvvv" {
-		loggingMiddleware.DumpRequests = true
-		loggingMiddleware.DumpResponses = true
-		loggingMiddleware.DumpErrors = true
-	}
+	loggingMiddleware.DumpRequests = *debug
+	loggingMiddleware.DumpResponses = *debug
+	loggingMiddleware.DumpErrors = *debug
 
 	for true {
 		log.Printf("Listening on %s", *bind)

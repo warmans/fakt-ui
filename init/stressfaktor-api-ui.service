@@ -1,0 +1,9 @@
+[Unit]
+Description=Stressfaktor API UI
+
+[Service]
+ExecStart=/bin/bash -c '/usr/bin/stressfaktor-api-ui'
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
