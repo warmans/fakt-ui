@@ -12,9 +12,6 @@ module.exports = function(grunt) {
                       'bower_components/angular/angular.js',
                       'bower_components/angular-route/angular-route.js',
                       'bower_components/angular-busy/angular-busy.js',
-                      //bootstrap
-                      'bower_components/jquery/dist/jquery.js',
-                      'bower_components/bootstrap/dist/js/bootstrap.min.js',
                       //moment
                       'bower_components/moment/moment.js',
                       //require
@@ -43,9 +40,20 @@ module.exports = function(grunt) {
                 }
             }
         },
+        cssmin: {
+          options: {
+            shorthandCompacting: false,
+            roundingPrecision: -1
+          },
+          target: {
+            files: {
+              'static/dist/all.min.css': ['static/dist/vendor.css', 'static/dist/style.css']
+            }
+          }
+        },
         watch: {
             files: ['static/src/less/style.less'],
-            tasks: ['less']
+            tasks: ['less', 'cssmin']
         }
     });
 
@@ -53,6 +61,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
 
-    grunt.registerTask('default', ['concat', 'uglify', 'less']);
+    grunt.registerTask('default', ['concat', 'uglify', 'less', 'cssmin']);
 }

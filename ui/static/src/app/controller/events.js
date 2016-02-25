@@ -29,7 +29,7 @@ define([], function () {
         $scope.events = [];
 
         if ($scope.eventTypes.length === 0) {
-            $scope.eventUpdatePromise = $http({method: 'GET', url: 'http://88.80.184.89/api/v1/event_type'})
+            $scope.eventUpdatePromise = $http({method: 'GET', url: 'http://api.fakt.pw/api/v1/event_type'})
             .then(function successCallback(response) {
                 angular.forEach(response.data.payload, function(type) {
                     if ($scope.eventTypes.indexOf(type) === -1) {
@@ -42,7 +42,7 @@ define([], function () {
         }
 
         var refreshEventData = function() {
-            $scope.eventUpdatePromise = $http({method: 'GET', url: 'http://88.80.184.89/api/v1/event', params: angular.extend({type: $scope.search.type}, $scope.search.periodQuery())})
+            $scope.eventUpdatePromise = $http({method: 'GET', url: 'http://api.fakt.pw/api/v1/event', params: angular.extend({type: $scope.search.type}, $scope.search.periodQuery())})
             .then(function successCallback(response) {
 
                 var events = [];
