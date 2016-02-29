@@ -10,7 +10,7 @@ function (dateHelper, eventsController) {
     app.config(['$routeProvider', function($routeProvider){
         $routeProvider
             .when('/events', {
-                templateUrl: '/ui/src/app/view/events.html',
+                templateUrl: '/src/app/view/events.html',
                 controller: 'eventsController',
                 reloadOnSearch: false
             })
@@ -19,7 +19,7 @@ function (dateHelper, eventsController) {
 
     angular.module('sfui').value('cgBusyDefaults',{
         message: "Loading...",
-        templateUrl: '/ui/src/app/view/partial/angular-busy.html',
+        templateUrl: '/src/app/view/partial/angular-busy.html',
         backdrop: true,
     });
 
