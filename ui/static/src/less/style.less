@@ -54,10 +54,6 @@ body {
     font-family: monospace;
 }
 
-h4 {
-    color: @brand-primary;
-}
-
 //navbar
 @navbar-inverse-brand-color: @brand-primary;
 
@@ -80,15 +76,23 @@ h4 {
 @panel-default-text:          @text-color;
 @panel-default-border:        @panel-border;
 @panel-default-heading-bg:    @panel-background;
+@panel-footer-bg:             @panel-bg;
 
 .panel .table {
-  margin-bottom: 0px;
+    margin-bottom: 0px;
 }
 
-.panel-body.numeric-status {
-  text-align: center;
-  font-size : 4em;
-  font-weight: bold;
+.panel .panel-body {
+    border-bottom: 1px solid #000;
+    border-top: 1px solid #000;
+}
+
+.panel-heading .panel-title {
+    color: @brand-primary;
+}
+
+.panel-footer {
+   border-color: @panel-border;
 }
 
 //tables

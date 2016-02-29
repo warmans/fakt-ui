@@ -10,22 +10,17 @@ import (
 	"fmt"
 )
 
-const VERSION = "0.1.0"
+const VERSION = "0.3.0"
 
 func main() {
 
 	bind := flag.String("bind", ":1313", "Web server bind address")
-	debug := flag.Bool("verbose", false, "enable debug logging")
 	ver := flag.Bool("v", false, "Print version and exit")
 	flag.Parse()
 
 	if *ver {
 		fmt.Printf("%s", VERSION)
 		os.Exit(0)
-	}
-
-	if *debug {
-		log.Printf("DEBUG is enabled (%v)", *debug)
 	}
 
 	//static assets

@@ -40,10 +40,17 @@
                 <span ng-repeat="(k, event) in events | filter: search.keyword">
                     <h3 ng-if="(k == 0 || (false == dateHelper.isSameDay(event.date, events[k-1].date)))">{{::event.dateCalendar}}</h3>
                     <div class="panel panel-default" style="margin-bottom: 10px">
+                        <div class="panel-heading">
+                            <a href="/#/events/{{::event.id}}">
+                                <h4 class="panel-title">
+                                    <div class="pull-right"><span class="glyphicon glyphicon-arrow-right"></span></div>
+                                    {{::event.type}} at {{::event.venue.name}}
+                                </h4>
+                            </a>
+                        </div>
                         <div class="panel-body">
-                            <h4><span class="glyphicon glyphicon-paperclip" style="font-size: 14px"></span> {{::event.type}} at {{::event.venue.name}}</h4>
-                            <div class="inset-divider"></div>
                             <p>{{::event.description}}</p>
+                            <div ng-if="::event.performer" class="inset-divider"></div>
                             <table ng-if="::event.performer" class="table table-condensed table-bordered">
                                 <tr ng-repeat="perf in ::event.performer">
                                     <td>{{::perf.name}} <span ng-if="::perf.home" class="text-muted">({{::perf.home}})</span></td>
@@ -52,8 +59,9 @@
                                     <td style="width: 24px"><a target="_blank" class="text-primary" href="https://google.com/search?q={{::perf.name}} {{::perf.home}}"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></td>
                                 </tr>
                             </table>
-                            <div class="inset-divider"></div>
-                            <span style="font-family: monospace">{{::event.datePretty}} <span class="text-muted">({{::event.dateFromNow}} at {{::event.venue.address}}<span ng-if="::event.venue.address != ''">{{::event.venue.name}}</span>)</span></span>
+                        </div>
+                        <div class="panel-footer">
+                            {{::event.datePretty}} <span class="text-muted">({{::event.dateFromNow}} at {{::event.venue.address}}<span ng-if="::event.venue.address != ''">{{::event.venue.name}}</span>)</span>
                         </div>
                     </div>
                 </span>

@@ -1,0 +1,44 @@
+<div cg-busy="eventUpdatePromise">
+    <nav class="navbar navbar-inverse navbar-fixed">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-star"></span> Stressfaktor API</a>
+        </div>
+    </nav>
+    <div class="container-fluid" style="padding-top: 20px;">
+        <div class="row">
+            <div class="col-lg-6 col-m-6 col-s-6 col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a href="/#/events/{{::event.id}}">
+                            <h4 class="panel-title">
+                                {{::event.type}} at {{::event.venue.name}}
+                            </h4>
+                        </a>
+                    </div>
+                    <div class="panel-body">
+                        <p>{{::event.description}}</p>
+                        <div ng-if="::event.performer" class="inset-divider"></div>
+                        <table ng-if="::event.performer" class="table table-condensed table-bordered">
+                            <tr ng-repeat="perf in ::event.performer">
+                                <td>{{::perf.name}} <span ng-if="::perf.home" class="text-muted">({{::perf.home}})</span></td>
+                                <td>{{::perf.genre}}</td>
+                                <td style="width: 24px"><a target="_blank" class="text-primary" ng-if="::perf.listen_url" href="{{::perf.listen_url}}">
+                                    <span class="glyphicon glyphicon-headphones" aria-hidden="true"></span></a>
+                                </td>
+                                <td style="width: 24px">
+                                    <a target="_blank" class="text-primary" href="https://google.com/search?q={{::perf.name}} {{::perf.home}}">
+                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="panel-footer">
+                        {{::event.datePretty}} <span class="text-muted">({{::event.dateFromNow}} at {{::event.venue.address}}<span
+                            ng-if="::event.venue.address != ''">{{::event.venue.name}}</span>)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
