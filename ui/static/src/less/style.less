@@ -21,6 +21,8 @@
 @import "panels.less";
 @import "navbar.less";
 @import "input-groups.less";
+@import "media.less";
+@import "labels.less";
 
 // Utility classes
 @import "utilities.less";
@@ -95,6 +97,17 @@ body {
    border-color: @panel-border;
 }
 
+.media {
+    margin-top: 5px;
+}
+
+.media-object {
+    -webkit-box-shadow: inset 0px 0px 20px 6px rgba(0,0,0,0.55);
+    -moz-box-shadow: inset 0px 0px 20px 6px rgba(0,0,0,0.55);
+    box-shadow: inset 0px 0px 20px 6px rgba(0,0,0,0.55);
+    border: 1px solid @panel-border;
+}
+
 //tables
 @table-bg:                      transparent;
 @table-bg-accent:               #1A1A1A;
@@ -129,4 +142,9 @@ table tr td {
 .cg-busy-backdrop {
 	background-color: black;
 	opacity: 0.7;
+}
+
+.performer-links a {
+    font-size: 90%;
+    margin-right: 10px;
 }

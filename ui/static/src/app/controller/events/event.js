@@ -2,6 +2,9 @@ define([], function () {
 
     function controller($scope, $routeParams, $http, dateHelper) {
 
+        $scope.event = {};
+        $scope.performers = [];
+
         var refreshEventData = function() {
             $scope.eventUpdatePromise = $http({method: 'GET', url: 'http://api.fakt.pw/api/v1/event', params: {event: $routeParams.event_id, deleted: 1}})
             .then(function successCallback(response) {
@@ -11,6 +14,16 @@ define([], function () {
                     $scope.event.datePretty = dateHelper.format($scope.event.date);
                     $scope.event.dateCalendar = dateHelper.calendar($scope.event.date);
                     $scope.event.dateFromNow = dateHelper.fromNow($scope.event.date);
+
+                    //fetch detailed performer data
+                    var pIDs = [];
+                    if ($scope.event.performer.length > 0){
+                        angular.forEach($scope.event.performer, function(perf) { pIDs.push(perf.id); });
+                        $scope.performerUpdatePromise = $http({method: 'GET', url: 'http://api.fakt.pw/api/v1/performer', params: {performer: pIDs.join(",")}})
+                        .then(function successCallback(response) {
+                            $scope.performers = response.data.payload;
+                        });
+                    }
                 }
             }, function errorCallback(response) {
                 console.log("FAILED", response)

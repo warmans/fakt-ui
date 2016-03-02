@@ -4498,6 +4498,121 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   z-index: 2;
   margin-left: -1px;
 }
+.media {
+  margin-top: 15px;
+}
+.media:first-child {
+  margin-top: 0;
+}
+.media,
+.media-body {
+  zoom: 1;
+  overflow: hidden;
+}
+.media-body {
+  width: 10000px;
+}
+.media-object {
+  display: block;
+}
+.media-object.img-thumbnail {
+  max-width: none;
+}
+.media-right,
+.media > .pull-right {
+  padding-left: 10px;
+}
+.media-left,
+.media > .pull-left {
+  padding-right: 10px;
+}
+.media-left,
+.media-right,
+.media-body {
+  display: table-cell;
+  vertical-align: top;
+}
+.media-middle {
+  vertical-align: middle;
+}
+.media-bottom {
+  vertical-align: bottom;
+}
+.media-heading {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+.media-list {
+  padding-left: 0;
+  list-style: none;
+}
+.label {
+  display: inline;
+  padding: .2em .6em .3em;
+  font-size: 75%;
+  font-weight: bold;
+  line-height: 1;
+  color: #ffffff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .25em;
+}
+a.label:hover,
+a.label:focus {
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+}
+.label:empty {
+  display: none;
+}
+.btn .label {
+  position: relative;
+  top: -1px;
+}
+.label-default {
+  background-color: #777777;
+}
+.label-default[href]:hover,
+.label-default[href]:focus {
+  background-color: #5e5e5e;
+}
+.label-primary {
+  background-color: #ac1c1c;
+}
+.label-primary[href]:hover,
+.label-primary[href]:focus {
+  background-color: #801515;
+}
+.label-success {
+  background-color: #5cb85c;
+}
+.label-success[href]:hover,
+.label-success[href]:focus {
+  background-color: #449d44;
+}
+.label-info {
+  background-color: #5bc0de;
+}
+.label-info[href]:hover,
+.label-info[href]:focus {
+  background-color: #31b0d5;
+}
+.label-warning {
+  background-color: #f0ad4e;
+}
+.label-warning[href]:hover,
+.label-warning[href]:focus {
+  background-color: #ec971f;
+}
+.label-danger {
+  background-color: #d9534f;
+}
+.label-danger[href]:hover,
+.label-danger[href]:focus {
+  background-color: #c9302c;
+}
 .clearfix:before,
 .clearfix:after,
 .dl-horizontal dd:before,
@@ -4811,6 +4926,15 @@ body {
 .panel-footer {
   border-color: #2f2f2f;
 }
+.media {
+  margin-top: 5px;
+}
+.media-object {
+  -webkit-box-shadow: inset 0px 0px 20px 6px rgba(0, 0, 0, 0.55);
+  -moz-box-shadow: inset 0px 0px 20px 6px rgba(0, 0, 0, 0.55);
+  box-shadow: inset 0px 0px 20px 6px rgba(0, 0, 0, 0.55);
+  border: 1px solid #2f2f2f;
+}
 table tr td {
   vertical-align: middle !important;
 }
@@ -4830,4 +4954,8 @@ table tr td {
 .cg-busy-backdrop {
   background-color: black;
   opacity: 0.7;
+}
+.performer-links a {
+  font-size: 90%;
+  margin-right: 10px;
 }
