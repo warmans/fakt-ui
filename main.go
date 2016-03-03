@@ -10,7 +10,7 @@ import (
 	"fmt"
 )
 
-const VERSION = "0.3.0"
+const VERSION = "0.5.0"
 
 func main() {
 

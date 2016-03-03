@@ -15,6 +15,9 @@ define([], function () {
                 if (p == "day") {
                     return {to: moment().add(1, "days").format("YYYY-MM-DD"), deleted: 0};
                 }
+                if (p == "weekend") {
+                    return {from: moment().add(1, "weeks").startOf('week').subtract(2, "days").format("YYYY-MM-DD"), to: moment().add(1, "weeks").startOf('week').add(1, 'days').format("YYYY-MM-DD"), deleted: 0};
+                }
                 if (p == "week") {
                     return {to: moment().add(1, "week").format("YYYY-MM-DD"), deleted: 0};
                 }

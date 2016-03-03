@@ -26,6 +26,7 @@
                     <select class="form-control" ng-model="search.period">
                         <option value="yesterday">yesterday</option>
                         <option value="day">today</option>
+                        <option value="weekend">this weekend</option>
                         <option value="week">this week</option>
                         <option value="month">this month</option>
                         <option value="all" selected>all</option>
@@ -49,7 +50,14 @@
                             </a>
                         </div>
                         <div class="panel-body">
-                            <p>{{::event.description}}</p>
+                            <div class="media">
+                                <div class="media-left">
+                                    <img ng-if="event.performer[0].img" style="width: 96px; height: 96px; background-image: url('{{event.performer[0].img}}'); background-position: center; background-size: cover;" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="/>
+                                </div>
+                                <div class="media-body">
+                                    {{::event.description}}
+                                </div>
+                            </div>
                             <div ng-if="::event.performer" class="inset-divider"></div>
                             <table ng-if="::event.performer" class="table table-condensed table-bordered">
                                 <tr ng-repeat="perf in ::event.performer">
@@ -61,7 +69,7 @@
                             </table>
                         </div>
                         <div class="panel-footer">
-                            {{::event.datePretty}} <span class="text-muted">({{::event.dateFromNow}} at {{::event.venue.address}}<span ng-if="::event.venue.address != ''">{{::event.venue.name}}</span>)</span>
+                            {{::event.datePretty}} <span class="text-muted">({{::event.dateFromNow}} at {{::event.venue.address}}<span ng-if="::event.venue.address == ''">{{::event.venue.name}}</span>)</span>
                         </div>
                     </div>
                 </span>

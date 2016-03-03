@@ -4900,11 +4900,8 @@ body {
   overflow-x: hidden;
 }
 body {
-  background-color: #161616;
-}
-body {
-  background: url('/img/dark_stripes.png');
-  font-family: monospace;
+  background: #161616 url('/img/dark_stripes.png');
+  font-family: 'Droid Sans', sans-serif;
 }
 .navbar-collapse .form-control {
   max-width: 150px;
@@ -4917,14 +4914,15 @@ body {
   margin-bottom: 0px;
 }
 .panel .panel-body {
-  border-bottom: 1px solid #000;
-  border-top: 1px solid #000;
+  border-bottom: 1px solid #111;
+  border-top: 1px solid #111;
 }
 .panel-heading .panel-title {
   color: #ac1c1c;
 }
 .panel-footer {
   border-color: #2f2f2f;
+  font-size: 90%;
 }
 .media {
   margin-top: 5px;
@@ -4958,4 +4956,6 @@ table tr td {
 .performer-links a {
   font-size: 90%;
   margin-right: 10px;
+  whitespace: no-br;
+  white-space: nowrap;
 }

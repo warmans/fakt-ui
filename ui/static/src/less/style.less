@@ -48,12 +48,8 @@ html,body
 }
 
 body {
-  background-color : @body-background;
-}
-
-body {
-    background: url('/img/dark_stripes.png');
-    font-family: monospace;
+    background: @body-background url('/img/dark_stripes.png');
+    font-family: 'Droid Sans', sans-serif;
 }
 
 //navbar
@@ -85,8 +81,8 @@ body {
 }
 
 .panel .panel-body {
-    border-bottom: 1px solid #000;
-    border-top: 1px solid #000;
+    border-bottom: 1px solid #111;
+    border-top: 1px solid #111;
 }
 
 .panel-heading .panel-title {
@@ -95,6 +91,7 @@ body {
 
 .panel-footer {
    border-color: @panel-border;
+   font-size: 90%;
 }
 
 .media {
@@ -147,4 +144,6 @@ table tr td {
 .performer-links a {
     font-size: 90%;
     margin-right: 10px;
+    whitespace: no-br;
+    white-space: nowrap;
 }

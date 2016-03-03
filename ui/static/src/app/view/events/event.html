@@ -1,49 +1,47 @@
-<div cg-busy="eventUpdatePromise">
-    <nav class="navbar navbar-inverse navbar-fixed">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-star"></span> Stressfaktor API</a>
-        </div>
-    </nav>
-    <div class="container-fluid" style="padding-top: 15px;">
-        <div class="row">
-            <div class="col-lg-6 col-m-6 col-s-6 col-xs-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            {{::event.type}} at {{::event.venue.name}}
-                        </h4>
-                    </div>
-                    <div class="panel-body">
-                        <p>{{::event.description}}</p>
-                    </div>
-                    <div class="panel-footer">
-                        {{::event.datePretty}} <span class="text-muted">({{::event.dateFromNow}} at {{::event.venue.address}}<span
-                            ng-if="::event.venue.address != ''">{{::event.venue.name}}</span>)</span>
-                    </div>
+<nav class="navbar navbar-inverse navbar-fixed">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-star"></span> Stressfaktor API</a>
+    </div>
+</nav>
+<div class="container-fluid" style="padding-top: 15px;">
+    <div class="row">
+        <div class="col-lg-6 col-m-6 col-s-6 col-xs-12">
+            <div class="panel panel-default" cg-busy="eventUpdatePromise">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        {{::event.type}} at {{::event.venue.name}}
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <p>{{::event.description}}</p>
+                </div>
+                <div class="panel-footer">
+                    {{::event.datePretty}} <span class="text-muted">({{::event.dateFromNow}} at {{::event.venue.address}}<span
+                        ng-if="::event.venue.address != ''">{{::event.venue.name}}</span>)</span>
                 </div>
             </div>
-            <div class="col-lg-6 col-m-6 col-s-6 col-xs-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><h4 class="panel-title">Performers</h4></div>
-                    <div class="panel-body">
-                        <div class="media" ng-repeat="(pkey, performer) in performers">
-                            <div class="media-body">
-                                <strong class="media-heading">{{performer.name}} </strong>
-                                <span class="text-muted" style="font-size: 80%; display: block; margin-bottom: 5px;">{{performer.home || "Somewhere"}} | {{performer.genre}}</span>
-                                <p>{{performer.info || "No bio. available."}}</p>
-                                <div class="performer-links">
-                                    <a ng-if="performer.listen_url" href="{{performer.listen_url}}" target="_blank"><span class="glyphicon glyphicon-headphones"></span> Listen</a>
-                                    <a href="https://google.com/search?q={{performer.name}}+{{performer.home}}" target="_blank"><span class="glyphicon glyphicon-search"></span> Search</a>
-                                    <a ng-repeat="link in performer.link"  href="{{link.uri}}" target="_blank"><span class="glyphicon glyphicon-share-alt"></span> {{link.text}}</a>
-                                </div>
+        </div>
+        <div class="col-lg-6 col-m-6 col-s-6 col-xs-12">
+            <div class="panel panel-default" cg-busy="performerUpdatePromise">
+                <div class="panel-heading"><h4 class="panel-title">Performers</h4></div>
+                <div class="panel-body">
+                    <div class="media" ng-repeat="(pkey, performer) in performers">
+                        <div class="media-body">
+                            <strong class="media-heading">{{performer.name}} </strong>
+                            <span class="text-muted" style="font-size: 80%; display: block; margin-bottom: 5px;">{{performer.genre || ""}} <span ng-if="performer.home">from {{performer.home}}</span></span>
+                            <p>{{performer.info || ""}}</p>
+                            <div class="performer-links">
+                                <a ng-if="performer.listen_url" href="{{performer.listen_url}}" target="_blank"><span class="glyphicon glyphicon-headphones"></span> Listen</a>
+                                <a href="https://google.com/search?q={{performer.name}}+{{performer.home}}" target="_blank"><span class="glyphicon glyphicon-search"></span> Search</a>
+                                <a ng-repeat="link in performer.link"  href="{{link.uri}}" target="_blank"><span class="glyphicon glyphicon-share-alt"></span> {{link.text}}</a>
                             </div>
-                            <div class="media-right media-middle">
-                                <a href="{{performer.listen_url}}" target="_blank">
-                                    <img class="media-object" style="width: 64px; height: 64px; background-image: url('{{performer.img}}'); background-position: center; background-size: cover;" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="/>
-                                </a>
-                            </div>
-                            <div ng-if="pkey+1 < performers.length" class="inset-divider"></div>
                         </div>
+                        <div class="media-right media-middle">
+                            <a href="{{performer.listen_url}}" target="_blank">
+                                <img class="media-object" style="width: 64px; height: 64px; background-image: url('{{performer.img}}'); background-position: center; background-size: cover;" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="/>
+                            </a>
+                        </div>
+                        <div ng-if="pkey+1 < performers.length" class="inset-divider"></div>
                     </div>
                 </div>
             </div>
