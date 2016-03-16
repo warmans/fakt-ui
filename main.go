@@ -8,6 +8,8 @@ import (
 	"github.com/NYTimes/gziphandler"
 	"time"
 	"fmt"
+	"net/http/httputil"
+	"net/url"
 )
 
 const VERSION = "0.5.0"
@@ -16,6 +18,8 @@ func main() {
 
 	bind := flag.String("bind", ":1313", "Web server bind address")
 	ver := flag.Bool("v", false, "Print version and exit")
+	apiHost := flag.String("api.host", "http://localhost:8080/api/v1", "Proxy api to avoid CORS crap")
+
 	flag.Parse()
 
 	if *ver {
@@ -37,6 +41,16 @@ func main() {
 	mux := http.NewServeMux()
 	mux.Handle("/ui/", http.RedirectHandler("/", http.StatusMovedPermanently))
 	mux.Handle("/", http.StripPrefix("/", gziphandler.GzipHandler(staticFileServer)))
+
+	//API proxy
+	apiHostParsed, err := url.Parse(*apiHost)
+	if err != nil {
+		log.Fatal("Invalid URL for api.host: %s", *apiHost)
+	}
+	mux.Handle(
+		"/api/v1/",
+		http.StripPrefix("/api/v1/", httputil.NewSingleHostReverseProxy(apiHostParsed)),
+	)
 
 	for true {
 		log.Printf("Listening on %s", *bind)

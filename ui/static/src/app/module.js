@@ -1,15 +1,27 @@
 define([
     './factory/dates',
+    './factory/me',
+
+    './controller/login',
     './controller/events',
     './controller/events/event',
+
+    './directive/tags/tags'
 ],
-function (dateHelper, eventsController, eventController) {
+function (dateHelper, me, loginController, eventsController, eventController, eventTagsDirective) {
 
     var app = angular.module('sfui', ['ngRoute', 'cgBusy']);
+
+    app.constant("CONFIG", {"api": "/api/v1"});
 
     //module config
     app.config(['$routeProvider', function($routeProvider){
         $routeProvider
+            .when('/login', {
+                templateUrl: '/src/app/view/login.html',
+                controller: 'loginController',
+                reloadOnSearch: false
+            })
             .when('/events/:event_id', {
                 templateUrl: '/src/app/view/events/event.html',
                 controller: 'eventController',
@@ -23,16 +35,21 @@ function (dateHelper, eventsController, eventController) {
             .otherwise({redirectTo: '/events'});
     }]);
 
-    angular.module('sfui').value('cgBusyDefaults',{
+    app.value('cgBusyDefaults',{
         message: "Loading...",
         templateUrl: '/src/app/view/partial/angular-busy.html',
         backdrop: true,
     });
 
+    //register directives
+    app.directive('eventTags', eventTagsDirective);
+
     //register factories
     app.factory('dateHelper', dateHelper);
+    app.service('me', me);
 
     //register controllers
     app.controller('eventsController', eventsController);
     app.controller('eventController', eventController);
+    app.controller('loginController', loginController);
 });

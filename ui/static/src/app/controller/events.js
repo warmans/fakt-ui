@@ -1,6 +1,6 @@
 define([], function () {
 
-    function controller($scope, $http, $location, dateHelper) {
+    function controller(CONFIG, $scope, $http, $location, dateHelper) {
 
         $scope.dateHelper = dateHelper;
         $scope.search = {
@@ -32,7 +32,7 @@ define([], function () {
         $scope.events = [];
 
         if ($scope.eventTypes.length === 0) {
-            $scope.eventUpdatePromise = $http({method: 'GET', url: 'http://api.fakt.pw/api/v1/event_type'})
+            $scope.eventUpdatePromise = $http({method: 'GET', url: CONFIG.api+'/event_type'})
             .then(function successCallback(response) {
                 angular.forEach(response.data.payload, function(type) {
                     if ($scope.eventTypes.indexOf(type) === -1) {
@@ -45,7 +45,7 @@ define([], function () {
         }
 
         var refreshEventData = function() {
-            $scope.eventUpdatePromise = $http({method: 'GET', url: 'http://api.fakt.pw/api/v1/event', params: angular.extend({type: $scope.search.type}, $scope.search.periodQuery())})
+            $scope.eventUpdatePromise = $http({method: 'GET', url: CONFIG.api+'/event', params: angular.extend({type: $scope.search.type}, $scope.search.periodQuery())})
             .then(function successCallback(response) {
 
                 var events = [];
@@ -81,7 +81,7 @@ define([], function () {
         $scope.$watch('search.type', queryWatcher)
     }
 
-    controller.$inject=['$scope', '$http', '$location', 'dateHelper'];
+    controller.$inject=['CONFIG', '$scope', '$http', '$location', 'dateHelper'];
 
     return controller;
 });

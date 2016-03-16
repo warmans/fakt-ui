@@ -16,13 +16,15 @@
                     <p>{{::event.description}}</p>
                 </div>
                 <div class="panel-footer">
-                    {{::event.datePretty}} <span class="text-muted">({{::event.dateFromNow}} at {{::event.venue.address}}<span
-                        ng-if="::event.venue.address != ''">{{::event.venue.name}}</span>)</span>
+                    {{::event.datePretty}}
+                    <span class="text-muted">({{::event.dateFromNow}} at
+                    <a ng-if="::event.venue.address != ''" target="_blank" href="http://maps.google.com/?q={{::event.venue.address}}">{{::event.venue.address}}</a>
+                    <span ng-if="::event.venue.address == ''"> {{::event.venue.name}}</span>)</span>
                 </div>
             </div>
         </div>
         <div class="col-lg-6 col-m-6 col-s-6 col-xs-12">
-            <div class="panel panel-default" cg-busy="performerUpdatePromise">
+            <div ng-if="performers.length > 0" class="panel panel-default" cg-busy="performerUpdatePromise">
                 <div class="panel-heading"><h4 class="panel-title">Performers</h4></div>
                 <div class="panel-body">
                     <div class="media" ng-repeat="(pkey, performer) in performers">
@@ -41,7 +43,7 @@
                                 <img class="media-object" style="width: 64px; height: 64px; background-image: url('{{performer.img}}'); background-position: center; background-size: cover;" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="/>
                             </a>
                         </div>
-                        <div ng-if="pkey+1 < performers.length" class="inset-divider"></div>
+                        <div ng-if="performers && pkey+1 < performers.length" class="inset-divider"></div>
                     </div>
                 </div>
             </div>

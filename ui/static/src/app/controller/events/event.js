@@ -1,12 +1,12 @@
 define([], function () {
 
-    function controller($scope, $routeParams, $http, dateHelper) {
+    function controller(CONFIG, $scope, $routeParams, $http, dateHelper) {
 
         $scope.event = {};
         $scope.performers = [];
 
         var refreshEventData = function() {
-            $scope.eventUpdatePromise = $http({method: 'GET', url: 'http://api.fakt.pw/api/v1/event', params: {event: $routeParams.event_id, deleted: 1}})
+            $scope.eventUpdatePromise = $http({method: 'GET', url: CONFIG.api+'/event', params: {event: $routeParams.event_id, deleted: 1}})
             .then(function successCallback(response) {
                 $scope.event = {};
                 if (response.data.payload.length > 0) {
@@ -17,9 +17,9 @@ define([], function () {
 
                     //fetch detailed performer data
                     var pIDs = [];
-                    if ($scope.event.performer.length > 0){
+                    if ($scope.event.performer && $scope.event.performer.length > 0){
                         angular.forEach($scope.event.performer, function(perf) { pIDs.push(perf.id); });
-                        $scope.performerUpdatePromise = $http({method: 'GET', url: 'http://api.fakt.pw/api/v1/performer', params: {performer: pIDs.join(",")}})
+                        $scope.performerUpdatePromise = $http({method: 'GET', url: CONFIG.api+'/performer', params: {performer: pIDs.join(",")}})
                         .then(function successCallback(response) {
                             $scope.performers = response.data.payload;
                         });
@@ -32,7 +32,7 @@ define([], function () {
         refreshEventData();
     }
 
-    controller.$inject=['$scope', '$routeParams', '$http', 'dateHelper'];
+    controller.$inject=['CONFIG', '$scope', '$routeParams', '$http', 'dateHelper'];
 
     return controller;
 });

@@ -1,4 +1,4 @@
-<div  cg-busy="eventUpdatePromise">
+<div cg-busy="eventUpdatePromise">
     <nav class="navbar navbar-inverse navbar-fixed">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" ng-init="menuExpanded = false" ng-click="menuExpanded = !menuExpanded">
@@ -69,7 +69,8 @@
                             </table>
                         </div>
                         <div class="panel-footer">
-                            {{::event.datePretty}} <span class="text-muted">({{::event.dateFromNow}} at {{::event.venue.address}}<span ng-if="::event.venue.address == ''">{{::event.venue.name}}</span>)</span>
+                            <event-tags ng-model="event.utag" class="pull-right" save="/event/{{::event.id}}/tag">tag | tag | tag</event-tags>
+                            <div>{{::event.datePretty}} <span class="text-muted">({{::event.dateFromNow}} at {{::event.venue.address}}<span ng-if="::event.venue.address == ''">{{::event.venue.name}}</span>)</span></div>
                         </div>
                     </div>
                 </span>
