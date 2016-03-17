@@ -1,0 +1,18 @@
+<nav class="navbar navbar-inverse navbar-fixed" ng-controller="headerController">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" ng-init="menuExpanded = false" ng-click="menuExpanded = !menuExpanded">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-star"></span> Stressfaktor API</a>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse" ng-class='{"in": menuExpanded}'>
+        <ul class="nav navbar-nav  navbar-right">
+            <li ng-class="getClass('/events')"><a href="/#/events"><span class="glyphicon glyphicon-paperclip text-primary" style="margin-right: 5px"></span> Events</a></li>
+            <li ng-if="me.user.id == null" ng-class="getClass('/login')"><a href="/#/login"><span class="glyphicon glyphicon-user text-primary" style="margin-right: 5px"></span> Login</a></li>
+            <li ng-if="me.user.id != null" ng-class="getClass('/logout')"><a ng-click="logout()"><span class="glyphicon glyphicon-user text-primary" style="margin-right: 5px"></span> Logout ({{me.user.username}})</a></li>
+        </ul>
+    </div><!--/.nav-collapse -->
+</nav>

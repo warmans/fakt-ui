@@ -2,13 +2,14 @@ define([
     './factory/dates',
     './factory/me',
 
+    './controller/header',
     './controller/login',
     './controller/events',
     './controller/events/event',
 
     './directive/tags/tags'
 ],
-function (dateHelper, me, loginController, eventsController, eventController, eventTagsDirective) {
+function (dateHelper, me, headerController, loginController, eventsController, eventController, eventTagsDirective) {
 
     var app = angular.module('sfui', ['ngRoute', 'cgBusy']);
 
@@ -52,4 +53,5 @@ function (dateHelper, me, loginController, eventsController, eventController, ev
     app.controller('eventsController', eventsController);
     app.controller('eventController', eventController);
     app.controller('loginController', loginController);
+    app.controller('headerController', headerController);
 });

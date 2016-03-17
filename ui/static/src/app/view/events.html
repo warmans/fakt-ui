@@ -1,41 +1,37 @@
 <div cg-busy="eventUpdatePromise">
-    <nav class="navbar navbar-inverse navbar-fixed">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" ng-init="menuExpanded = false" ng-click="menuExpanded = !menuExpanded">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-star"></span> Stressfaktor API</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse" ng-class='{"in": menuExpanded}'>
-            <form class="navbar-form navbar-right" role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search..." ng-model="search.keyword">
-                    <select class="form-control" ng-model="search.type">
-                        <option value="">Anything</option>
-                        <optgroup label="Grouped">
-                            <option value="Konzert,Soliparty,Soli-Konzert,Party">Gigs and Parties</option>
-                            <option value="Film,Film Club,Kino,Filmstube,Histo-Kino,Kino-Arbend">Films and Cinema</option>
-                        </optgroup>
-                        <optgroup label="Individual">
-                            <option ng-repeat="et in eventTypes" value="{{::et}}">{{::et}}</option>
-                        </optgroup>
-                    </select>
-                    <select class="form-control" ng-model="search.period">
-                        <option value="yesterday">yesterday</option>
-                        <option value="day">today</option>
-                        <option value="weekend">this weekend</option>
-                        <option value="week">this week</option>
-                        <option value="month">this month</option>
-                        <option value="all" selected>all</option>
-                    </select>
-                </div>
-            </form>
-        </div><!--/.nav-collapse -->
-    </nav>
+    <ng-include src="'src/app/view/partial/header.html'"></ng-include>
     <div class="container-fluid">
+        <div class="row subnav">
+            <div class="col-lg-12 col-m-12 col-s-12 col-xs-12">
+                <form class="row">
+                    <div class="col-lg-6 col-m-6 col-s-6 col-xs-6">
+                        <input type="text" class="form-control input-sm" placeholder="Search..." ng-model="search.keyword">
+                    </div>
+                    <div class="col-lg-3 col-m-3 col-s-3 col-xs-3">
+                        <select class="form-control input-sm" ng-model="search.type">
+                            <option value="">Anything</option>
+                            <optgroup label="Grouped">
+                                <option value="Konzert,Soliparty,Soli-Konzert,Party">Gigs and Parties</option>
+                                <option value="Film,Film Club,Kino,Filmstube,Histo-Kino,Kino-Arbend">Films and Cinema</option>
+                            </optgroup>
+                            <optgroup label="Individual">
+                                <option ng-repeat="et in eventTypes" value="{{::et}}">{{::et}}</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-m-3 col-s-3 col-xs-3">
+                        <select class="form-control input-sm input-block-level" ng-model="search.period">
+                            <option value="yesterday">yesterday</option>
+                            <option value="day">today</option>
+                            <option value="weekend">this weekend</option>
+                            <option value="week">this week</option>
+                            <option value="month">this month</option>
+                            <option value="all" selected>all</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+        </div>
         <div class="row">
             <div class="col-lg-12 col-m-12 col-s-12 col-xs-12">
                 <span ng-repeat="(k, event) in events | filter: search.keyword">
@@ -69,7 +65,7 @@
                             </table>
                         </div>
                         <div class="panel-footer">
-                            <event-tags ng-model="event.utag" class="pull-right" save="/event/{{::event.id}}/tag">tag | tag | tag</event-tags>
+                            <event-tags ng-model="event.utag" class="pull-right" save="/event/{{::event.id}}/tag"></event-tags>
                             <div>{{::event.datePretty}} <span class="text-muted">({{::event.dateFromNow}} at {{::event.venue.address}}<span ng-if="::event.venue.address == ''">{{::event.venue.name}}</span>)</span></div>
                         </div>
                     </div>

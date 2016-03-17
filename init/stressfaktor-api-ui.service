@@ -2,7 +2,7 @@
 Description=Stressfaktor API UI
 
 [Service]
-ExecStart=/bin/bash -c '/usr/bin/stressfaktor-api-ui'
+ExecStart=/usr/bin/stressfaktor-api-ui -api.host="http://api.fakt.pw"
 Restart=on-failure
 
 [Install]

@@ -19,6 +19,7 @@
 // Components
 @import "component-animations.less";
 @import "panels.less";
+@import "navs.less";
 @import "navbar.less";
 @import "input-groups.less";
 @import "media.less";
@@ -37,6 +38,7 @@
 @list-group-bg: @panel-background;
 @list-group-border: @panel-border;
 @navbar-margin-bottom: 0px;
+@navbar-inverse-link-active-bg: darken(@navbar-inverse-bg, 2%);
 
 html,body
 {
@@ -55,13 +57,9 @@ body {
 //navbar
 @navbar-inverse-brand-color: @brand-primary;
 
-.navbar-collapse .form-control {
-    max-width: 150px;
-}
-
-.navbar-collapse.in .form-control {
-    max-width: 100%;
-    margin-bottom: 5px;
+.navbar-inverse .navbar-nav li.active {
+    border-left: 1px solid #333;
+    border-right: 1px solid #333;
 }
 
 //rounding
@@ -160,4 +158,8 @@ table tr td {
 
   display: flex;
   align-items: center;
+}
+
+.subnav {
+    padding-top: 10px;
 }

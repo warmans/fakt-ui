@@ -1,8 +1,5 @@
-<nav class="navbar navbar-inverse navbar-fixed">
-    <div class="navbar-header">
-        <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-star"></span> Stressfaktor API</a>
-    </div>
-</nav>
+<ng-include src="'src/app/view/partial/header.html'"></ng-include>
+
 <div class="container-fluid" style="padding-top: 15px;">
     <div class="row">
         <div class="col-lg-6 col-m-6 col-s-6 col-xs-12">
@@ -16,10 +13,13 @@
                     <p>{{::event.description}}</p>
                 </div>
                 <div class="panel-footer">
-                    {{::event.datePretty}}
-                    <span class="text-muted">({{::event.dateFromNow}} at
-                    <a ng-if="::event.venue.address != ''" target="_blank" href="http://maps.google.com/?q={{::event.venue.address}}">{{::event.venue.address}}</a>
-                    <span ng-if="::event.venue.address == ''"> {{::event.venue.name}}</span>)</span>
+                    <event-tags ng-model="event.utag" class="pull-right" save="/event/{{::event.id}}/tag"></event-tags>
+                    <div>
+                        {{::event.datePretty}}
+                        <span class="text-muted">({{::event.dateFromNow}} at
+                        <a ng-if="::event.venue.address != ''" target="_blank" href="http://maps.google.com/?q={{::event.venue.address}}">{{::event.venue.address}}</a>
+                        <span ng-if="::event.venue.address == ''"> {{::event.venue.name}}</span>)</span>
+                    </div>
                 </div>
             </div>
         </div>
