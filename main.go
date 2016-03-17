@@ -1,4 +1,5 @@
 package main
+
 import (
 	_ "github.com/wader/disable_sendfile_vbox_linux"
 	"net/http"
@@ -10,7 +11,6 @@ import (
 	"fmt"
 	"net/http/httputil"
 	"net/url"
-	"strings"
 )
 
 const VERSION = "0.6.0"
