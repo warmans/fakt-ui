@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"net/http/httputil"
 	"net/url"
+	"strings"
 )
 
 const VERSION = "0.6.0"
@@ -47,6 +48,7 @@ func main() {
 	if err != nil {
 		log.Fatal("Invalid URL for api.host: %s", *apiHost)
 	}
+	log.Printf("Proxying API calls to: %s", apiHostParsed)
 	mux.Handle(
 		"/api/v1/",
 		http.StripPrefix("/api/v1/", httputil.NewSingleHostReverseProxy(apiHostParsed)),
