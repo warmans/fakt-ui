@@ -1,33 +1,14 @@
 define([], function () {
 
-    function controller(CONFIG, $scope, $http, $location, dateHelper) {
-
+    function controller(CONFIG, $route, $scope, $http, $location, dateHelper, me) {
         $scope.dateHelper = dateHelper;
+        $scope.keywordFilter = "";
         $scope.search = {
-            keyword: "",
             period: $location.search().period || "week",
             type: $location.search().type || "",
-            periodQuery: function() {
-                var p = $scope.search.period
-                if (p == "yesterday") {
-                    return {from: moment().subtract(1, "day").format("YYYY-MM-DD"), to: moment().format("YYYY-MM-DD"), deleted: 1};
-                }
-                if (p == "day") {
-                    return {to: moment().add(1, "days").format("YYYY-MM-DD"), deleted: 0};
-                }
-                if (p == "weekend") {
-                    return {from: moment().add(1, "weeks").startOf('week').subtract(2, "days").format("YYYY-MM-DD"), to: moment().add(1, "weeks").startOf('week').add(1, 'days').format("YYYY-MM-DD"), deleted: 0};
-                }
-                if (p == "week") {
-                    return {to: moment().add(1, "week").format("YYYY-MM-DD"), deleted: 0};
-                }
-                if (p == "month") {
-                    return {to: moment().add(1, "month").format("YYYY-MM-DD"), deleted: 0};
-                }
-                return {to: null, deleted: 0} //all
-            }
+            tag: $route.current.$$route.data.queryContext.tag != undefined ? $route.current.$$route.data.queryContext.tag : "",
+            tag_user: $route.current.$$route.data.queryContext.me_only == true ? me.user.username  : "",
         };
-
         $scope.eventTypes = [];
         $scope.events = [];
 
@@ -45,7 +26,7 @@ define([], function () {
         }
 
         var refreshEventData = function() {
-            $scope.eventUpdatePromise = $http({method: 'GET', url: CONFIG.api+'/event', params: angular.extend({type: $scope.search.type}, $scope.search.periodQuery())})
+            $scope.eventUpdatePromise = $http({method: 'GET', url: CONFIG.api+'/event', params: angular.extend($scope.search, dateHelper.searchPeriodFromText($scope.search.period))})
             .then(function successCallback(response) {
 
                 var events = [];
@@ -81,7 +62,7 @@ define([], function () {
         $scope.$watch('search.type', queryWatcher)
     }
 
-    controller.$inject=['CONFIG', '$scope', '$http', '$location', 'dateHelper'];
+    controller.$inject=['CONFIG', '$route', '$scope', '$http', '$location', 'dateHelper', 'me'];
 
     return controller;
 });

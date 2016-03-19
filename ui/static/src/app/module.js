@@ -31,7 +31,16 @@ function (dateHelper, me, headerController, loginController, eventsController, e
             .when('/events', {
                 templateUrl: '/src/app/view/events.html',
                 controller: 'eventsController',
-                reloadOnSearch: false
+                reloadOnSearch: false,
+                data: {queryContext: {}}
+            })
+            .when('/my/events', {
+                templateUrl: '/src/app/view/events.html',
+                controller: 'eventsController',
+                reloadOnSearch: false,
+                data: {
+                    queryContext: {tag: "like", me_only: true}
+                }
             })
             .otherwise({redirectTo: '/events'});
     }]);

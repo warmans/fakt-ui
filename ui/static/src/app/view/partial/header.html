@@ -12,6 +12,8 @@
         <ul class="nav navbar-nav  navbar-right">
             <li ng-class="getClass('/events')"><a href="/#/events"><span class="glyphicon glyphicon-paperclip text-primary" style="margin-right: 5px"></span> Events</a></li>
             <li ng-if="me.user.id == null" ng-class="getClass('/login')"><a href="/#/login"><span class="glyphicon glyphicon-user text-primary" style="margin-right: 5px"></span> Login</a></li>
+
+            <li ng-if="me.user.id != null" ng-class="getClass('/my/events')"><a href="/#/my/events"><span class="glyphicon glyphicon-thumbs-up text-primary" style="margin-right: 5px"></span> Tracked</a></li>
             <li ng-if="me.user.id != null" ng-class="getClass('/logout')"><a ng-click="logout()"><span class="glyphicon glyphicon-user text-primary" style="margin-right: 5px"></span> Logout ({{me.user.username}})</a></li>
         </ul>
     </div><!--/.nav-collapse -->
