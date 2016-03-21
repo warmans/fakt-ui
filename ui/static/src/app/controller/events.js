@@ -1,6 +1,6 @@
 define([], function () {
 
-    function controller(CONFIG, $route, $scope, $http, $location, dateHelper, me) {
+    function controller(CONFIG, $route, $scope, $http, $location, dateHelper, notify, me) {
         $scope.dateHelper = dateHelper;
         $scope.keywordFilter = "";
         $scope.search = {
@@ -20,9 +20,7 @@ define([], function () {
                         $scope.eventTypes.push(type);
                     }
                 });
-            }, function errorCallback(response) {
-                console.log("FAILED", response)
-            });
+            }, notify.handleHttpErr);
         }
 
         var refreshEventData = function() {
@@ -46,9 +44,7 @@ define([], function () {
                     $location.search('type', $scope.search.type);
                 }
 
-            }, function errorCallback(response) {
-                console.log("FAILED", response)
-            });
+            }, notify.handleHttpErr);
         }
         refreshEventData();
 
@@ -62,7 +58,7 @@ define([], function () {
         $scope.$watch('search.type', queryWatcher)
     }
 
-    controller.$inject=['CONFIG', '$route', '$scope', '$http', '$location', 'dateHelper', 'me'];
+    controller.$inject=['CONFIG', '$route', '$scope', '$http', '$location', 'dateHelper', 'notify', 'me'];
 
     return controller;
 });

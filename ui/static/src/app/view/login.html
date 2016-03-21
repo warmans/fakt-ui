@@ -1,4 +1,4 @@
-<div>
+<div cg-busy="promises.login">
     <ng-include src="'src/app/view/partial/header.html'"></ng-include>
     <div class="container-fluid">
         <div class="row">
@@ -13,7 +13,8 @@
                         <input type="password" class="form-control" id="password" ng-model="user.password">
                     </div>
                     <div class="form-group">
-                        <button ng-click="login(user)" class="btn btn-primary btn-sm">Sign in</button>
+                        <button ng-click="submit('login', user)" ng-disabled="disableButtons" class="btn btn-primary">Login</button>
+                        <button class="pull-right btn btn-link text-muted" ng-disabled="disableButtons" ng-click="submit('register', user)">or create user</button>
                     </div>
                 </form>
             </div>

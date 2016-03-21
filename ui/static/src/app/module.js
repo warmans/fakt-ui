@@ -1,6 +1,7 @@
 define([
     './factory/dates',
     './factory/me',
+    './factory/notify',
 
     './controller/header',
     './controller/login',
@@ -9,7 +10,7 @@ define([
 
     './directive/tags/tags'
 ],
-function (dateHelper, me, headerController, loginController, eventsController, eventController, eventTagsDirective) {
+function (dateHelper, me, notify, headerController, loginController, eventsController, eventController, eventTagsDirective) {
 
     var app = angular.module('sfui', ['ngRoute', 'cgBusy']);
 
@@ -57,6 +58,7 @@ function (dateHelper, me, headerController, loginController, eventsController, e
     //register factories
     app.factory('dateHelper', dateHelper);
     app.service('me', me);
+    app.service('notify', notify);
 
     //register controllers
     app.controller('eventsController', eventsController);

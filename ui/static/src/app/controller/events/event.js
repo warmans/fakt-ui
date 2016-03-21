@@ -1,6 +1,6 @@
 define([], function () {
 
-    function controller(CONFIG, $scope, $routeParams, $http, dateHelper) {
+    function controller(CONFIG, $scope, $routeParams, $http, dateHelper, notify) {
 
         $scope.event = {};
         $scope.performers = [];
@@ -25,14 +25,12 @@ define([], function () {
                         });
                     }
                 }
-            }, function errorCallback(response) {
-                console.log("FAILED", response)
-            });
+            }, notify.handleHttpErr);
         }
         refreshEventData();
     }
 
-    controller.$inject=['CONFIG', '$scope', '$routeParams', '$http', 'dateHelper'];
+    controller.$inject=['CONFIG', '$scope', '$routeParams', '$http', 'dateHelper', 'notify'];
 
     return controller;
 });

@@ -1,7 +1,9 @@
 define([], function () {
 
-    function controller(CONFIG, $scope, $location, $http, me) {
+    function controller(CONFIG, $scope, $location, $http, notify, me) {
+
         $scope.me = me;
+        $scope.notify = notify;
 
         $scope.getClass = function (path) {
           return ($location.path().substr(0, path.length) === path) ? 'active' : '';
@@ -11,13 +13,11 @@ define([], function () {
             $http({method: 'POST', url: CONFIG.api+'/logout', data: user})
             .then(function successCallback(response) {
                 $scope.me = {user: null};
-            }, function errorCallback(response) {
-                console.log("FAILED", response)
-            });
+            }, notify.handleHttpErr);
         };
     }
 
-    controller.$inject=['CONFIG', '$scope', '$location', '$http', 'me'];
+    controller.$inject=['CONFIG', '$scope', '$location', '$http', 'notify', 'me'];
 
     return controller;
 });
