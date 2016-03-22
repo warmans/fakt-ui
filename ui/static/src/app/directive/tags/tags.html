@@ -1,5 +1,5 @@
 <div class="btn-group btn-group-xs" role="group">
-    <a ng-repeat="(key, tag) in tagState" ng-click="toggleTag(key, tag)" class="btn btn-xs" ng-class="{'disabled': (me.user.id < 1)}" title="{{implode(tag.users)}}">
-        <span class="glyphicon {{::tag.icon}}"></span> ({{tag.count}})
+    <a ng-repeat="(key, tag) in tagState" ng-click="toggleTag(key, tag)" class="btn btn-xs" ng-class="{'disabled': (me.user.id < 1), 'btn-pressed': tag.clicked}" title="{{implode(tag.users)}}">
+        <span class="glyphicon {{::tag.icon}}"></span> {{tag.count}}
     </a>
 </div>

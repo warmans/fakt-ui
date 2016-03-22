@@ -10,7 +10,7 @@ define([
 
     './directive/tags/tags'
 ],
-function (dateHelper, me, notify, headerController, loginController, eventsController, eventController, eventTagsDirective) {
+function (dateHelper, me, notify, headerController, loginController, eventsController, eventController, TagSelectDirective) {
 
     var app = angular.module('sfui', ['ngRoute', 'cgBusy']);
 
@@ -53,7 +53,7 @@ function (dateHelper, me, notify, headerController, loginController, eventsContr
     });
 
     //register directives
-    app.directive('eventTags', eventTagsDirective);
+    app.directive('tagSelect', TagSelectDirective);
 
     //register factories
     app.factory('dateHelper', dateHelper);

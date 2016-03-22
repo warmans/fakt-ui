@@ -65,7 +65,7 @@
                             </table>
                         </div>
                         <div class="panel-footer">
-                            <event-tags ng-model="event.utag" class="pull-right" save="/event/{{::event.id}}/tag"></event-tags>
+                            <tag-select ng-model="event.utag" class="pull-right" save="/event/{{::event.id}}/tag"></tag-select>
                             <div>{{::event.datePretty}} <span class="text-muted">({{::event.dateFromNow}} at {{::event.venue.address}}<span ng-if="::event.venue.address == ''">{{::event.venue.name}}</span>)</span></div>
                         </div>
                     </div>

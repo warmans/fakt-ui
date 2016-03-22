@@ -13,7 +13,7 @@
                     <p>{{::event.description}}</p>
                 </div>
                 <div class="panel-footer">
-                    <event-tags ng-model="event.utag" class="pull-right" save="/event/{{::event.id}}/tag"></event-tags>
+                    <tag-select ng-model="event.utag" class="pull-right" save="/event/{{::event.id}}/tag"></tag-select>
                     <div>
                         {{::event.datePretty}}
                         <span class="text-muted">({{::event.dateFromNow}} at
@@ -28,9 +28,15 @@
                 <div class="panel-heading"><h4 class="panel-title">Performers</h4></div>
                 <div class="panel-body">
                     <div class="media" ng-repeat="(pkey, performer) in performers">
+                        <div class="media-left media-top">
+                            <a href="{{performer.listen_url}}" target="_blank">
+                                <img class="media-object" style="width: 128px; height: 128px; background-image: url('{{performer.img}}'); background-position: center; background-size: cover;" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="/>
+                            </a>
+                        </div>
                         <div class="media-body">
-                            <strong class="media-heading">{{performer.name}} </strong>
-                            <span class="text-muted" style="font-size: 80%; display: block; margin-bottom: 5px;">{{performer.genre || ""}} <span ng-if="performer.home">from {{performer.home}}</span></span>
+                            <tag-select ng-model="performer.utag" class="pull-right"  save="/performer/{{::performer.id}}/tag"></tag-select>
+                            <strong class="media-heading">{{performer.name}}</strong>
+                            <span class="text-muted" style="font-size: 80%; display: block; margin-bottom: 5px;">{{performer.genre || ""}}</span>
                             <p>{{performer.info || ""}}</p>
                             <div class="performer-links">
                                 <a ng-if="performer.listen_url" href="{{performer.listen_url}}" target="_blank"><span class="glyphicon glyphicon-headphones"></span> Listen</a>
@@ -38,12 +44,7 @@
                                 <a ng-repeat="link in performer.link"  href="{{link.uri}}" target="_blank"><span class="glyphicon glyphicon-share-alt"></span> {{link.text}}</a>
                             </div>
                         </div>
-                        <div class="media-right media-middle">
-                            <a href="{{performer.listen_url}}" target="_blank">
-                                <img class="media-object" style="width: 64px; height: 64px; background-image: url('{{performer.img}}'); background-position: center; background-size: cover;" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="/>
-                            </a>
-                        </div>
-                        <div ng-if="performers && pkey+1 < performers.length" class="inset-divider"></div>
+                         <div ng-if="performers && pkey+1 < performers.length" class="inset-divider"></div>
                     </div>
                 </div>
             </div>
