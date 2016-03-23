@@ -32,7 +32,7 @@
 @import "responsive-utilities.less";
 
 //Overrides
-@brand-primary: lighten(#801515, 10%);
+@brand-primary: #B2543D;
 @body-background: #161616;
 @panel-background: #1F1F1F;
 @panel-border: #2F2F2F;
@@ -47,45 +47,18 @@
 @state-success-text:             #fff;
 @state-success-bg:               #3c763d;
 @state-success-border:           darken(spin(@state-success-bg, -10), 5%);
-
 @state-info-text:                #fff;
 @state-info-bg:                  #31708f;
 @state-info-border:              darken(spin(@state-info-bg, -10), 7%);
-
 @state-warning-text:             #fff;
 @state-warning-bg:               #8a6d3b;
 @state-warning-border:           darken(spin(@state-warning-bg, -10), 5%);
-
 @state-danger-text:              #fff;
 @state-danger-bg:                #a94442;
 @state-danger-border:            darken(spin(@state-danger-bg, -10), 5%);
 
-.alert {
-    margin-bottom: 5px;
-}
-
-
-html,body
-{
-    width: 100%;
-    height: 100%;
-    margin: 0px;
-    padding: 0px;
-    overflow-x: hidden;
-}
-
-body {
-    background: @body-background url('/img/dark_stripes.png');
-    font-family: 'Droid Sans', sans-serif;
-}
-
 //navbar
 @navbar-inverse-brand-color: @brand-primary;
-
-.navbar-inverse .navbar-nav li.active {
-    border-left: 1px solid #333;
-    border-right: 1px solid #333;
-}
 
 //rounding
 @border-radius-base:        0px;
@@ -98,6 +71,47 @@ body {
 @panel-default-border:        @panel-border;
 @panel-default-heading-bg:    @panel-background;
 @panel-footer-bg:             @panel-bg;
+
+//tables
+@table-bg:                      transparent;
+@table-bg-accent:               #1A1A1A;
+@table-bg-hover:                #1A1A1A;
+@table-border-color:            @panel-border;
+
+//forms
+@input-bg: darken(@panel-background, 2%);
+@input-border:  @input-bg;
+
+html,body
+{
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
+}
+
+body {
+    background-color: #121212;
+    font-family: 'Noto Sans', sans-serif;
+}
+h1, h2, h3, h4 {
+    text-transform: uppercase;
+}
+
+.page-container {
+    z-index: 100;
+}
+
+.navbar-inverse .navbar-nav li.active {
+    border-left: 1px solid #333;
+    border-right: 1px solid #333;
+}
+
+.alert {
+    margin-bottom: 5px;
+}
+
 
 .panel .table {
     margin-bottom: 0px;
@@ -128,19 +142,9 @@ body {
     border: 1px solid @panel-border;
 }
 
-//tables
-@table-bg:                      transparent;
-@table-bg-accent:               #1A1A1A;
-@table-bg-hover:                #1A1A1A;
-@table-border-color:            @panel-border;
-
 table tr td {
   vertical-align: middle !important;
 }
-
-//forms
-@input-bg: darken(@panel-background, 2%);
-@input-border:  @input-bg;
 
 .radio-inline {
   margin-bottom: -5px !important;

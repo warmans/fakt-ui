@@ -38,12 +38,14 @@
                     <h3 ng-if="(k == 0 || (false == dateHelper.isSameDay(event.date, events[k-1].date)))">{{::event.dateCalendar}}</h3>
                     <div class="panel panel-default" style="margin-bottom: 10px">
                         <div class="panel-heading">
-                            <a href="/#/events/{{::event.id}}">
+
                                 <h4 class="panel-title">
-                                    <div class="pull-right"><span class="glyphicon glyphicon-arrow-right"></span></div>
-                                    {{::event.type}} at {{::event.venue.name}}
+                                    <tag-select ng-model="event.utag" class="pull-right" save="/event/{{::event.id}}/tag"></tag-select>
+                                    <a href="/#/events/{{::event.id}}">
+                                        {{::event.type}} at {{::event.venue.name}}
+                                    </a>
                                 </h4>
-                            </a>
+
                         </div>
                         <div class="panel-body">
                             <div class="media">
@@ -65,7 +67,6 @@
                             </table>
                         </div>
                         <div class="panel-footer">
-                            <tag-select ng-model="event.utag" class="pull-right" save="/event/{{::event.id}}/tag"></tag-select>
                             <div>{{::event.datePretty}} <span class="text-muted">({{::event.dateFromNow}} at {{::event.venue.address}}<span ng-if="::event.venue.address == ''">{{::event.venue.name}}</span>)</span></div>
                         </div>
                     </div>

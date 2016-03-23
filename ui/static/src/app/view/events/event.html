@@ -6,6 +6,7 @@
             <div class="panel panel-default" cg-busy="eventUpdatePromise">
                 <div class="panel-heading">
                     <h4 class="panel-title">
+                        <tag-select ng-model="event.utag" class="pull-right" save="/event/{{::event.id}}/tag"></tag-select>
                         {{::event.type}} at {{::event.venue.name}}
                     </h4>
                 </div>
@@ -13,7 +14,7 @@
                     <p>{{::event.description}}</p>
                 </div>
                 <div class="panel-footer">
-                    <tag-select ng-model="event.utag" class="pull-right" save="/event/{{::event.id}}/tag"></tag-select>
+
                     <div>
                         {{::event.datePretty}}
                         <span class="text-muted">({{::event.dateFromNow}} at
@@ -25,7 +26,7 @@
         </div>
         <div class="col-lg-6 col-m-6 col-s-6 col-xs-12">
             <div ng-if="performers.length > 0" class="panel panel-default" cg-busy="performerUpdatePromise">
-                <div class="panel-heading"><h4 class="panel-title">Performers</h4></div>
+                <div class="panel-heading"><h4 class="panel-title">Featuring</h4></div>
                 <div class="panel-body">
                     <div class="media" ng-repeat="(pkey, performer) in performers">
                         <div class="media-left media-top">
