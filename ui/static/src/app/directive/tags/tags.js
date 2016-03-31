@@ -1,6 +1,6 @@
 define([], function(){
 
-    function directive(CONFIG, me, $http) {
+    function directive(CONFIG, me, notify, $http) {
         return {
             restrict: 'E',
             require: 'ngModel',
@@ -14,32 +14,30 @@ define([], function(){
                 ];
 
                 scope.toggleTag = function(key, tag) {
+
+                    if (!attrs["save"]) {
+                        console.log("no save url. Cannot update tags")
+                        return
+                    }
+
+                    var syncMethod = "POST"
+
                     //update the interface instantly
                     if (tag.clicked) {
                         scope.tagState[key].count--;
+                        syncMethod = "DELETE"
+
                     } else {
                         scope.tagState[key].count++;
+                        syncMethod = "POST"
                     }
                     scope.tagState[key].clicked = !tag.clicked;
 
-                    //then sync to backend
-                    var userTags = []
-                    angular.forEach(scope.tagState, function(availTag) {
-                        if (availTag.clicked == true) {
-                            userTags.push(availTag.value);
-                        }
-                    });
-                    if (attrs["save"]) {
-                      $http({method: 'POST', url: CONFIG.api+attrs["save"], data: userTags})
-                        .then(function successCallback(response) {
-                            ngModelCtrl.$viewValue = response.data.payload;
-                        }, function errorCallback(response) {
-                            console.log("FAILED", response)
-                        });
-
-                    } else {
-                        console.log("no save url")
-                    }
+                    //sync to server
+                    $http({method: syncMethod, url: CONFIG.api+attrs["save"], data: [tag.value]})
+                    .then(function successCallback(response) {
+                        ngModelCtrl.$viewValue = response.data.payload;
+                    }, notify.handleHttpErr);
                 };
 
                 ngModelCtrl.$render = function() {
@@ -62,7 +60,7 @@ define([], function(){
             }
         }
     }
-    directive.$inject=["CONFIG", "me", "$http"];
+    directive.$inject=["CONFIG", "me", "notify", "$http"];
 
     return directive;
 });

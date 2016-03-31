@@ -12,6 +12,17 @@ define([], function () {
         $scope.eventTypes = [];
         $scope.events = [];
 
+        $scope.eventImage = function(event) {
+            if (!event.performer) {
+                return "";
+            }
+            for (i=0; i<event.performer.length; i++) {
+                if (event.performer[i].img != "" && event.performer[i].img != null) {
+                    return event.performer[i].img;
+                }
+            }
+        }
+
         if ($scope.eventTypes.length === 0) {
             $scope.eventUpdatePromise = $http({method: 'GET', url: CONFIG.api+'/event_type'})
             .then(function successCallback(response) {

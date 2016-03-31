@@ -38,31 +38,28 @@
                     <h3 ng-if="(k == 0 || (false == dateHelper.isSameDay(event.date, events[k-1].date)))">{{::event.dateCalendar}}</h3>
                     <div class="panel panel-default" style="margin-bottom: 10px">
                         <div class="panel-heading">
-
-                                <h4 class="panel-title">
-                                    <tag-select ng-model="event.utag" class="pull-right" save="/event/{{::event.id}}/tag"></tag-select>
-                                    <a href="/#/events/{{::event.id}}">
-                                        {{::event.type}} at {{::event.venue.name}}
-                                    </a>
-                                </h4>
-
+                            <h4 class="panel-title">
+                                <tag-select ng-model="event.utag" class="pull-right" style="margin-left: 10px;" save="/event/{{::event.id}}/tag"></tag-select>
+                                <a href="/#/events/{{::event.id}}">
+                                    {{::event.type}} at {{::event.venue.name}}
+                                </a>
+                            </h4>
                         </div>
                         <div class="panel-body">
                             <div class="media">
-                                <div class="media-left">
-                                    <img ng-if="event.performer[0].img" style="width: 96px; height: 96px; background-image: url('{{event.performer[0].img}}'); background-position: center; background-size: cover;" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="/>
-                                </div>
                                 <div class="media-body">
+                                    <img ng-if="eventImage(event)" class="pull-left event-list-performer-image" style="background-image: url('{{eventImage(event)}}');" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="/>
                                     {{::event.description}}
                                 </div>
                             </div>
                             <div ng-if="::event.performer" class="inset-divider"></div>
                             <table ng-if="::event.performer" class="table table-condensed table-bordered">
                                 <tr ng-repeat="perf in ::event.performer">
+                                    <td style="width: 80px;"><tag-select ng-model="::perf.utag" save="/performer/{{::perf.id}}/tag"></tag-select></td>
                                     <td>{{::perf.name}} <span ng-if="::perf.home" class="text-muted">({{::perf.home}})</span></td>
                                     <td>{{::perf.genre}}</td>
                                     <td style="width: 24px"><a target="_blank" class="text-primary" ng-if="::perf.listen_url" href="{{::perf.listen_url}}"><span class="glyphicon glyphicon-headphones" aria-hidden="true"></span></a></td>
-                                    <td style="width: 24px"><a target="_blank" class="text-primary" href="https://google.com/search?q={{::perf.name}} {{::perf.home}}"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></td>
+                                    <td style="width: 24px"><a target="_blank" class="text-primary" href="https://google.com/search?q={{::perf.name}}+band+{{::perf.home}}"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></td>
                                 </tr>
                             </table>
                         </div>
