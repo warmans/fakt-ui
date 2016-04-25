@@ -13,7 +13,7 @@ import (
 	"net/url"
 )
 
-const VERSION = "0.8.0"
+const VERSION = "0.9.0"
 
 func main() {
 

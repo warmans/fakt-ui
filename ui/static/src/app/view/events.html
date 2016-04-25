@@ -55,7 +55,7 @@
                             <div ng-if="::event.performer" class="inset-divider"></div>
                             <table ng-if="::event.performer" class="table table-condensed table-bordered">
                                 <tr ng-repeat="perf in ::event.performer">
-                                    <td style="width: 80px;"><tag-select ng-model="::perf.utag" save="/performer/{{::perf.id}}/tag"></tag-select></td>
+                                    <td style="width: 115px;"><tag-select ng-model="::perf.utag" save="/performer/{{::perf.id}}/tag"></tag-select></td>
                                     <td>{{::perf.name}} <span ng-if="::perf.home" class="text-muted">({{::perf.home}})</span></td>
                                     <td>{{::perf.genre}}</td>
                                     <td style="width: 24px"><a target="_blank" class="text-primary" ng-if="::perf.listen_url" href="{{::perf.listen_url}}"><span class="glyphicon glyphicon-headphones" aria-hidden="true"></span></a></td>

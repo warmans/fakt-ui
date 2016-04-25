@@ -9,8 +9,9 @@ define([], function(){
 
                 scope.me = me;
                 scope.tagState = [
-                    {value: "like", icon: "glyphicon-thumbs-up", count: 0, clicked: false, users: []},
-                    {value: "dislike", icon: "glyphicon-thumbs-down", count: 0, clicked: false, users: []},
+                    {value: "like", icon: "glyphicon-ok", count: 0, clicked: false, users: []},
+                    {value: "meh", icon: "glyphicon-minus", count: 0, clicked: false, users: []},
+                    {value: "dislike", icon: "glyphicon-remove", count: 0, clicked: false, users: []},
                 ];
 
                 scope.toggleTag = function(key, tag) {
