@@ -16,6 +16,10 @@ function (dateHelper, me, notify, headerController, loginController, eventsContr
 
     app.constant("CONFIG", {"api": "/api/v1"});
 
+    app.config(['$compileProvider', function ($compileProvider) {
+      $compileProvider.debugInfoEnabled(false);
+    }]);
+
     //module config
     app.config(['$routeProvider', function($routeProvider){
         $routeProvider
