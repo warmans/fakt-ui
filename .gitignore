@@ -1,7 +1,10 @@
 .idea
 *.iml
+.packaging
+.dist
 /ui/bower_components
 /ui/node_modules
 /pkg
 /stressfaktor-api-ui
 /temp
+private.mk

@@ -1,50 +1,62 @@
-PREFIX=/usr
-BINDIR=${DESTDIR}${PREFIX}/bin
-PROJ=stressfaktor-api-ui
-PACKAGE_TYPE=deb
-PACKAGE_BUILD_DIR=temp
-PACKAGE_DIR=dist
+PROJECT_NAME=stressfaktor-api-ui
+PROJECT_VERSION=0.10.0
+
+# Go
+#-----------------------------------------------------------------------
+
+.PHONY: test
+test:
+	@go test
+
+.PHONY: build
+build:
+	go get
+	GO15VENDOREXPERIMENT=1 go build -ldflags "-X main.VERSION=$(PROJECT_VERSION)"
 
 .PHONY: static
 static:
 	@sed -i "s/\?cb\=[0-9]*/?cb=$$(date +%s)/g" ui/static/index.html
 	${GOPATH}/bin/esc -prefix="ui/static" -o static.go ui/static
 
-.PHONY: build
-build: static
-	go build
+# Github Releases
+#-----------------------------------------------------------------------
 
-.PHONY: install
-install: build
+#this contains a github api token and is not included in the repo
+include .make/private.mk
+
+GH_REPO_OWNER = warmans
+GH_REPO_NAME = stressfaktor-api-ui
+
+RELEASE_TARGET_COMMITISH = master
+RELEASE_ARTIFACT_DIR = .dist
+RELEASE_ARTIFACT_REGEX = .*\.deb
+RELEASE_VERSION=$(PROJECT_VERSION)
+
+include .make/github.mk
+
+# Packaging
+#-----------------------------------------------------------------------
+
+PACKAGE_NAME = $(PROJECT_NAME)
+PACKAGE_CONTENT_DIR = .packaging
+PACKAGE_TYPE := deb
+PACKAGE_OUTPUT_DIR = $(RELEASE_ARTIFACT_DIR)/.
+PACKAGE_VERSION = $(PROJECT_VERSION)
+
+include .make/packaging.mk
+
+.PHONY: _configure_package
+_configure_package: build
 
 	#install binary
-	GOBIN=${BINDIR} go install -v
+	@mkdir -p $(PACKAGE_CONTENT_DIR)/usr/bin/ && cp $(PROJECT_NAME) $(PACKAGE_CONTENT_DIR)/usr/bin/.
 
 	#install init script
-	install -Dm 755 init/${PROJ}.service ${DESTDIR}/etc/systemd/system/${PROJ}.service
+	@install -Dm 755 init/$(PROJECT_NAME).service $(PACKAGE_CONTENT_DIR)/etc/systemd/system/$(PROJECT_NAME).service
 
-.PHONY: package
-package:
 
-	#
-	# export PACKAGE_TYPE to vary package type (e.g. deb, tar, rpm)
-	#
-	@if [ -z "$(shell which fpm 2>/dev/null)" ]; then \
-		echo "error:\nPackaging requires effing package manager (fpm) to run.\nsee https://github.com/jordansissel/fpm\n"; \
-		exit 1; \
-	fi
+# Meta
+#-----------------------------------------------------------------------
 
-	#run make install against the packaging dir
-	mkdir -p ${PACKAGE_BUILD_DIR} && $(MAKE) install DESTDIR=${PACKAGE_BUILD_DIR}
-
-	#clean
-	mkdir -p ${PACKAGE_DIR} && rm -f dist/*.${PACKAGE_TYPE}
-
-	#build package
-	fpm --rpm-os linux \
-		-s dir \
-		-p dist \
-		-t ${PACKAGE_TYPE} \
-		-n ${PROJ} \
-		-v `${PACKAGE_BUILD_DIR}${PREFIX}/bin/${PROJ} -v` \
-		-C ${PACKAGE_BUILD_DIR} .
+.PHONY: publish
+publish: build package release
