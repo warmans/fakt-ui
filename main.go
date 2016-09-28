@@ -1,7 +1,6 @@
 package main
 
 import (
-	_ "github.com/wader/disable_sendfile_vbox_linux"
 	"net/http"
 	"log"
 	"flag"
@@ -17,9 +16,9 @@ const VERSION = "0.0.0"
 
 func main() {
 
-	bind := flag.String("bind", ":1313", "Web server bind address")
+	bind := flag.String("server.bind", ":1313", "Web server bind address")
 	ver := flag.Bool("v", false, "Print version and exit")
-	apiHost := flag.String("api.host", "http://localhost:8080/api/v1", "Proxy api to avoid CORS crap")
+	faktAPIHost := flag.String("api.fakt.host", "http://localhost:8080/api/v1", "Proxy api to avoid CORS crap")
 
 	flag.Parse()
 
@@ -44,9 +43,9 @@ func main() {
 	mux.Handle("/", http.StripPrefix("/", gziphandler.GzipHandler(staticFileServer)))
 
 	//API proxy
-	apiHostParsed, err := url.Parse(*apiHost)
+	apiHostParsed, err := url.Parse(*faktAPIHost)
 	if err != nil {
-		log.Fatal("Invalid URL for api.host: %s", *apiHost)
+		log.Fatalf("Invalid URL for api.host: %s", *faktAPIHost)
 	}
 	log.Printf("Proxying API calls to: %s", apiHostParsed)
 	mux.Handle(

@@ -1,0 +1,4 @@
+package: github.com/warmans/fakt-ui
+import:
+- package: github.com/NYTimes/gziphandler
+- package: github.com/wader/disable_sendfile_vbox_linux
